@@ -35,3 +35,27 @@ resultados_treino = to_categorical(resultados_treino, 10)
 resultados_teste = to_categorical(resultados_teste, 10)  
 
 print("Dados preparados!") 
+
+# 3. CRIAR MODELO
+
+modelo = Sequential([
+    tf.keras.Input(shape=(784,)),
+    Dense(512, activation='relu'),
+    Dropout(0.2),
+    Dense(256, activation='relu'),
+    Dropout(0.2),
+    Dense(10, activation='softmax')
+])
+
+# Compilar modelo
+modelo.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+print("Modelo ANN construído e compilado!")
+
+# 4. TREINAR MODELO
+
+treinando = modelo.fit(dados_treino, resultados_treino, 
+                    epochs=20, 
+                    batch_size=128, 
+                    validation_split=0.2) 
+
+modelo.save("modelo_mnist.h5")
