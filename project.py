@@ -20,3 +20,18 @@ import matplotlib.pyplot as plt
 # 6. VISUALIZAÇÃO
 import matplotlib.pyplot as plt
 import seaborn as sns 
+
+#2. PREPARAR DADOS
+
+(dados_treino, resultados_treino), (dados_teste, resultados_teste) = mnist.load_data()  
+
+dados_treino = dados_treino.astype('float32') / 255  
+dados_teste = dados_teste.astype('float32') / 255  
+
+dados_treino = dados_treino.reshape(-1, 28*28)  
+dados_teste = dados_teste.reshape(-1, 28*28)  
+
+resultados_treino = to_categorical(resultados_treino, 10)  
+resultados_teste = to_categorical(resultados_teste, 10)  
+
+print("Dados preparados!") 
