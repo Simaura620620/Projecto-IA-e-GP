@@ -9,9 +9,6 @@ Por:
 
 Projeto de Inteligência Artificial que utiliza Rede Neural Artificial (ANN) treinada com 60.000 imagens do dataset MNIST para reconhecer dígitos desenhados ou carregados pelo usuário.
 
-para executar:
-python interface.py 
-
 **Acurácia: ~98%**
 
 ## Como Usar:
