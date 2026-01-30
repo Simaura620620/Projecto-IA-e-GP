@@ -15,7 +15,7 @@ except Exception as e:
     print(f"✗ Erro ao carregar modelo: {e}")
     modelo = None
 
-# ==================== PRÉ-PROCESSAMENTO MELHORADO ====================
+# PRÉ-PROCESSAMENTO MELHORADO 
 def preprocess_imagem(img):
     """
     Pré-processamento OTIMIZADO para reconhecimento robusto
@@ -35,7 +35,7 @@ def preprocess_imagem(img):
     
     # 2. MELHORAR CONTRASTE
     enhancer = ImageEnhance.Contrast(img)
-    img = enhancer.enhance(2.5)  # Aumentado de 2.0 para 2.5
+    img = enhancer.enhance(2.5) 
     
     # 3. REMOVER RUÍDO com filtro gaussiano suave
     img = img.filter(ImageFilter.GaussianBlur(radius=0.5))
@@ -43,7 +43,7 @@ def preprocess_imagem(img):
     # 4. CENTRALIZAR O DÍGITO (critical for MNIST)
     img_array = np.array(img, dtype='float32')
     
-    # Encontrar bounding box do dígito
+ 
     threshold = np.max(img_array) * 0.3
     coords = np.argwhere(img_array > threshold)
     
@@ -51,7 +51,7 @@ def preprocess_imagem(img):
         y_min, x_min = coords.min(axis=0)
         y_max, x_max = coords.max(axis=0)
         
-        # Adicionar margem de 10%
+   
         altura = y_max - y_min
         largura = x_max - x_min
         margem_y = int(altura * 0.1)
@@ -62,13 +62,10 @@ def preprocess_imagem(img):
         x_min = max(0, x_min - margem_x)
         x_max = min(img_array.shape[1], x_max + margem_x)
         
-        # Recortar
         img_cropped = img.crop((x_min, y_min, x_max, y_max))
-        
-        # Redimensionar mantendo proporção
+    
         img_cropped.thumbnail((20, 20), Image.Resampling.LANCZOS)
         
-        # Colocar em canvas 28x28 centralizado
         img_final = Image.new('L', (28, 28), color=0)
         offset_x = (28 - img_cropped.width) // 2
         offset_y = (28 - img_cropped.height) // 2
@@ -76,13 +73,13 @@ def preprocess_imagem(img):
         
         print(f"[DEBUG] ✓ Dígito centralizado: crop=({x_min},{y_min},{x_max},{y_max})")
     else:
-        # Fallback: apenas redimensionar
+    
         img_final = img.resize((28, 28), Image.Resampling.LANCZOS)
         print("[DEBUG] ⚠ Nenhum dígito detectado - usando redimensionamento simples")
     
     # 5. NORMALIZAR E BINARIZAR
     img_array = np.array(img_final, dtype='float32') / 255.0
-    img_array = np.where(img_array > 0.4, 1.0, 0.0)  # Threshold reduzido de 0.5 para 0.4
+    img_array = np.where(img_array > 0.4, 1.0, 0.0)  
     
     print(f"[DEBUG] Shape: {img_array.shape}, Pixels ativos: {(img_array > 0.5).sum()}")
     
@@ -91,7 +88,7 @@ def preprocess_imagem(img):
     
     return img_array
 
-# ==================== FUNÇÕES DA INTERFACE ====================
+# FUNÇÕES DA INTERFACE
 def reconhecer():
     """Reconhece o dígito desenhado ou carregado"""
     global imagem
@@ -113,14 +110,11 @@ def reconhecer():
         
         print(f"✓ RESULTADO: Dígito {classe} ({confianca:.1f}%)")
         
-        # Top 3 previsões
         top3_idx = np.argsort(predicao[0])[::-1][:3]
         
-        # Atualizar resultado com animação visual
         resultado_numero.config(text=str(classe))
         resultado_confianca.config(text=f"{confianca:.1f}% confiança")
         
-        # Mostrar top 3
         top3_text = ""
         for i, idx in enumerate(top3_idx):
             top3_text += f"{' ' if i==0 else ' ' if i==1 else ' '} {idx}: {predicao[0][idx]*100:.1f}%\n"
@@ -190,14 +184,12 @@ def limpar():
     
     print("🧹 Canvas limpo")
 
-# ==================== INTERFACE TKINTER ====================
 janela = tk.Tk()
 janela.title("Reconhecimento de Dígitos MNIST")
 janela.geometry("1000x650")
 janela.configure(bg="#0f0f23")
 janela.resizable(False, False)
 
-# Estilos customizados
 COR_BG = "#0f0f23"
 COR_CARD = "#1a1a2e"
 COR_ACCENT = "#16213e"
@@ -207,7 +199,7 @@ COR_TEXTO_SEC = "#94a1b2"
 COR_GRADIENT_1 = "#667eea"
 COR_GRADIENT_2 = "#764ba2"
 
-# Container principal
+
 container = tk.Frame(janela, bg=COR_BG)
 container.pack(fill="both", expand=True, padx=20, pady=20)
 
@@ -240,7 +232,6 @@ content_frame.pack(fill="both", expand=True)
 left_panel = tk.Frame(content_frame, bg=COR_CARD, relief="flat")
 left_panel.pack(side="left", fill="both", expand=True, padx=(0, 10))
 
-# Título do painel
 canvas_titulo = tk.Label(left_panel, 
                         text="ÁREA DE DESENHO", 
                         font=("Helvetica Neue", 12, "bold"), 
@@ -248,7 +239,6 @@ canvas_titulo = tk.Label(left_panel,
                         bg=COR_CARD)
 canvas_titulo.pack(pady=(15, 10))
 
-# Botão carregar
 btn_carregar = tk.Button(left_panel, 
                         text="Carregar Imagem", 
                         font=("Helvetica Neue", 10, "bold"), 
@@ -263,7 +253,6 @@ btn_carregar = tk.Button(left_panel,
                         pady=6)
 btn_carregar.pack(pady=(0, 10))
 
-# Canvas com borda estilizada
 canvas_container = tk.Frame(left_panel, bg="#667eea", padx=3, pady=3)
 canvas_container.pack(pady=8)
 
@@ -275,12 +264,10 @@ canvas = tk.Canvas(canvas_container,
                   cursor="pencil")
 canvas.pack()
 
-# Inicializar imagem
 imagem = Image.new("L", (320, 320), color=0)
 draw = ImageDraw.Draw(imagem)
 canvas.bind("<B1-Motion>", desenhar)
 
-# Dica
 dica_label = tk.Label(left_panel, 
                      text="Dica: Desenhe o número GRANDE e CENTRALIZADO", 
                      font=("Helvetica Neue", 9, "italic"), 
@@ -288,7 +275,6 @@ dica_label = tk.Label(left_panel,
                      bg=COR_CARD)
 dica_label.pack(pady=(8, 0))
 
-# Botões de ação
 botoes_frame = tk.Frame(left_panel, bg=COR_CARD)
 botoes_frame.pack(pady=15)
 
@@ -323,11 +309,11 @@ btn_limpar = tk.Button(botoes_frame,
                       height=2)
 btn_limpar.pack(side="left", padx=8)
 
-# ===== COLUNA DIREITA - Resultados =====
+# COLUNA DIREITA - Resultados 
 right_panel = tk.Frame(content_frame, bg=COR_CARD, relief="flat")
 right_panel.pack(side="right", fill="both", expand=True, padx=(10, 0))
 
-# Título
+
 resultado_titulo = tk.Label(right_panel, 
                             text="RESULTADO DA PREDIÇÃO", 
                             font=("Helvetica Neue", 12, "bold"), 
@@ -335,7 +321,6 @@ resultado_titulo = tk.Label(right_panel,
                             bg=COR_CARD)
 resultado_titulo.pack(pady=(15, 20))
 
-# Card do resultado principal
 resultado_card = tk.Frame(right_panel, bg=COR_ACCENT, relief="flat")
 resultado_card.pack(pady=15, padx=30, fill="x")
 
@@ -360,7 +345,6 @@ resultado_confianca = tk.Label(resultado_card,
                               bg=COR_ACCENT)
 resultado_confianca.pack(pady=(0, 15))
 
-# Separador
 sep2 = tk.Frame(right_panel, bg="#667eea", height=2)
 sep2.pack(pady=15, fill="x", padx=30)
 
@@ -380,7 +364,7 @@ resultado_top3 = tk.Label(right_panel,
                          justify="left")
 resultado_top3.pack(pady=8)
 
-# Footer com informação
+# Footer 
 footer = tk.Frame(right_panel, bg=COR_CARD)
 footer.pack(side="bottom", pady=15)
 
@@ -392,7 +376,6 @@ info_label = tk.Label(footer,
                      justify="center")
 info_label.pack()
 
-# Executar
 print("\n" + "="*50)
 print("Interface MNIST PREMIUM iniciada!")
 janela.mainloop()
