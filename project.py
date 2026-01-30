@@ -1,5 +1,5 @@
 # python -m pip install --upgrade pip
-# pip install tensorflow-2.10.0-cp39-cp39-win_amd64.whl ** tem que baixar o tensorflow-2.10.0-cp39-cp39-win_amd64.whl na web
+# pip install tensorflow-2.10.0-cp39-cp39-win_amd64.whl ** tem que baixar o tensorflow-2.10.0-cp39-cp39-win_amd64.whl na web, caso a rede seja instável
 # pip install numpy==1.24.4
 # pip install scikit-learn matplotlib seaborn
 

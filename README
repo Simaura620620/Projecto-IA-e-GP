@@ -1,6 +1,22 @@
 # Reconhecimento de Dígitos MNIST
 
-Tensorflow: 
+Sistema de reconhecimento de dígitos manuscritos (0-9) usando Deep Learning com interface gráfica.
+Por:
+    Simáura Alberto
+    Domingos Cativa
+   
+## Descrição
+
+Projeto de Inteligência Artificial que utiliza Rede Neural Artificial (ANN) treinada com 60.000 imagens do dataset MNIST para reconhecer dígitos desenhados ou carregados pelo usuário.
+
+para executar:
+python interface.py 
+
+**Acurácia: ~98%**
+
+## Como Usar:
+
+Primeiro baixar o Tensorflow manualmente (caso a internet seja instável): 
 
 Linux (GPU)
 https://storage.googleapis.com/tensorflow/versions/2.20.0/tensorflow-2.20.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
@@ -11,22 +27,11 @@ https://storage.googleapis.com/tensorflow/versions/2.20.0/tensorflow-2.20.0-cp31
 macOS (ARM64)
 https://storage.googleapis.com/tensorflow/versions/2.20.0/tensorflow-2.20.0-cp312-cp312-macosx_12_0_arm64.whl
 
-Sistema de reconhecimento de dígitos manuscritos (0-9) usando Deep Learning com interface gráfica.
-Por:
-    Domingos Cativa
-    Simáura Alberto
 
-## Descrição
-
-Projeto de Inteligência Artificial que utiliza Rede Neural Artificial (ANN) treinada com 60.000 imagens do dataset MNIST para reconhecer dígitos desenhados ou carregados pelo usuário.
-
-**Acurácia: ~98%**
-
-## Como Usar
-
-### 1. Instalar Dependências (tem que baixar tensorflow-2.10.0-cp39-cp39-win_amd64.whl na web e colocar na mesma pasta do projecto)
+### 1. Instalar Dependências 
 ```bash
 pip install tensorflow numpy pillow matplotlib seaborn scikit-learn
+pip install tensorflow-2.10.0-cp39-cp39-win_amd64.whl (caso a rede esteja instável)
 ```
 
 ### 2. Treinar o Modelo
@@ -52,12 +57,12 @@ python interface.py
 
 ```
 PROJECTO IA E GP/
-├──  tensorflow-2.10.0-cp39-cp39-win_amd64.whl                      # baixado manualmente
-├── project.py                                                      # Script de treinamento do modelo
-├── interface.py                                                    # Interface gráfica (Tkinter)
-├── modelo_mnist.h5                                                 # Modelo treinado (gerado após treino)
-├── README.md                                                       # Este arquivo
-└── .gitignore                                                      # Arquivos ignorados pelo Git
+├──  tensorflow-2.10.0-cp39-cp39-win_amd64.whl    # baixado manualmente
+├── project.py                                    # Script de treinamento do modelo
+├── interface.py                                  # Interface gráfica (Tkinter)
+├── modelo_mnist.h5                               # Modelo treinado (gerado após treino)
+├── README.md                                     # Este arquivo
+└── .gitignore                                    # Arquivos ignorados pelo Git
 
 ---
 ```
