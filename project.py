@@ -133,5 +133,3 @@ for ax, idx in zip(axes.flat, indices_escolhidos):
 plt.suptitle("Exemplos de Classificações Erradas do Modelo", fontsize=14)
 plt.tight_layout()
 plt.show()
-
-
