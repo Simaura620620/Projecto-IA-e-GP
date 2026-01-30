@@ -8,8 +8,13 @@ Projeto de Inteligência Artificial que utiliza Rede Neural Artificial (ANN) tre
 
 **Acurácia: ~98%**
 
-## Como Usar:
+## COMO USAR:
 
+## Para usar o modelo treinado imediatamente:
+digite no terminal o comando abaixo (a interface abrirá e estsrá pronta para uso):
+python interface.py
+
+## Para treinar o modelo novamente (opcianl, só para ver como funciona o treino e relatórios):
 Primeiro baixar o Tensorflow manualmente (caso a internet seja instável): 
 
 Linux (GPU)
